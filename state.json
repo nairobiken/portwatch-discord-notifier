@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-26T16:18:31.636Z",
+  "updated": "2026-11-26T19:14:28.197Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -1344,10 +1344,6 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "c317ea8d3ba68c86",
-    "e36818acd3027420",
-    "67e918b44399315a",
-    "0b3aa047ae9425d9",
     "ae1d9f13c718a3e7",
     "c439536ffcc6de47",
     "1b81edc6c54071e6",
@@ -1363,7 +1359,15 @@
     "f4dd32beee96de92",
     "002ec7173dd47d7f",
     "3055a003d9a724b4",
-    "2d03935d92a7b973"
+    "2d03935d92a7b973",
+    "87f6a21de6c8603c"
   ],
-  "pinned_text": "**Devs: please put a performance overlay on your in-game clips.**\n\nLike the one on Belo's build below: FPS and frame times, resolution, GPU and CPU with their load, and how much VRAM and RAM the game uses.\n\nIt keeps the race more transparent, everyone sees what their build really runs at, at what resolution and on what PC."
+  "pinned": {
+    "show": true,
+    "text": "",
+    "gif": "assets/img/pinned/whiplash.gif",
+    "updated": "2026-11-26T19:15:13Z",
+    "name": "4lwayz",
+    "avatar": "assets/img/4lwayz-2.jpg"
+  }
 }
