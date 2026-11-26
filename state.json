@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-26T19:14:28.197Z",
+  "updated": "2026-11-26T22:07:44.715Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -1315,6 +1315,7 @@
     }
   },
   "news_ids": [
+    "2026-11-26-multiplayer-running",
     "2026-11-25-belobug-way-ahead",
     "2026-11-25-zettrox-no-crashes",
     "2026-11-25-prologue-gone-fishing",
@@ -1344,12 +1345,6 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "ae1d9f13c718a3e7",
-    "c439536ffcc6de47",
-    "1b81edc6c54071e6",
-    "6c31790e26a82f13",
-    "1127dd8a443f5b6c",
-    "9482fbb3e4b4f683",
     "11818c1340167e98",
     "08d6ebe4ae21eaf0",
     "fd5c57ef957c5304",
@@ -1360,6 +1355,7 @@
     "002ec7173dd47d7f",
     "3055a003d9a724b4",
     "2d03935d92a7b973",
+    "87f6a21de6c8603c",
     "87f6a21de6c8603c"
   ],
   "pinned": {
