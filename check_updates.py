@@ -12,7 +12,7 @@ PINNED_URL = "https://portwatch-vi.xyz/data/pinned.json"
 SITE_URL = "https://portwatch-vi.xyz/"
 STATE_FILE = "state.json"
 
-USER_AGENT = "PortWatchDiscordNotifier/2.0 (+https://portwatch-vi.xyz/)"
+USER_AGENT = "PortWatchDiscordNotifier/2.1 (+https://portwatch-vi.xyz/)"
 
 STAGE_LABELS = [
     ("playable", "Playable"),
@@ -32,8 +32,32 @@ CATEGORY_COLORS = {
 }
 
 
+def to_float(val, default: float = 0.0) -> float:
+    try:
+        return float(val) if val is not None else default
+    except (TypeError, ValueError):
+        return default
+
+
+def abs_url(path: str) -> str:
+    path = (path or "").strip()
+    if not path:
+        return ""
+    if path.startswith("http://") or path.startswith("https://"):
+        return path
+    return f"{SITE_URL}{path.lstrip('/')}"
+
+
 def fetch_json(url: str):
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    sep = "&" if "?" in url else "?"
+    bust_url = f"{url}{sep}_={int(time.time())}"
+    req = urllib.request.Request(
+        bust_url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Cache-Control": "no-cache",
+        },
+    )
     try:
         with urllib.request.urlopen(req, timeout=20) as resp:
             return json.loads(resp.read().decode("utf-8"))
@@ -56,7 +80,7 @@ def compute_score(effort: dict) -> float:
     gta = effort.get("gta") or {}
     ladder = 0.0
     for key in ("loads", "boots", "menu", "world", "playable"):
-        val = float(gta.get(key) or 0)
+        val = to_float(gta.get(key), 0.0)
         ladder += 10.0 * val
         if val < 1.0:
             break
@@ -64,17 +88,17 @@ def compute_score(effort: dict) -> float:
     if ladder == 0.0:
         gw = effort.get("groundwork") or {}
         vals = [
-            float(gw.get("loader") or 0),
-            float(gw.get("shaders") or 0),
-            float(gw.get("graphics") or 0),
-            float(gw.get("proven") or 0),
+            to_float(gw.get("loader"), 0.0),
+            to_float(gw.get("shaders"), 0.0),
+            to_float(gw.get("graphics"), 0.0),
+            to_float(gw.get("proven"), 0.0),
         ]
         return round((sum(vals) / 4.0) * 10.0, 1)
 
-    if float(gta.get("playable") or 0) >= 1.0:
-        story = float(gta.get("story") or 0)
-        render = float(gta.get("render") or 0)
-        fps = min(float(gta.get("fps") or 0) / 30.0, 1.0)
+    if to_float(gta.get("playable"), 0.0) >= 1.0:
+        story = to_float(gta.get("story"), 0.0)
+        render = to_float(gta.get("render"), 0.0)
+        fps = min(to_float(gta.get("fps"), 0.0) / 30.0, 1.0)
         stab_raw = gta.get("stability")
         stability = float(stab_raw) if isinstance(stab_raw, (int, float)) else 0.0
         bonus = 0.5 * (35.0 * story + 25.0 * render + 20.0 * fps + 20.0 * stability)
@@ -86,7 +110,7 @@ def compute_score(effort: dict) -> float:
 def get_stage_name(effort: dict) -> str:
     gta = effort.get("gta") or {}
     for key, label in STAGE_LABELS:
-        val = float(gta.get(key) or 0)
+        val = to_float(gta.get(key), 0.0)
         if val >= 1.0:
             return label
         if val > 0:
@@ -108,7 +132,7 @@ def effort_url(effort: dict) -> str:
         return proof["url"]
     link = effort.get("link")
     if link:
-        return link if link.startswith("http") else f"{SITE_URL}{link.lstrip('/')}"
+        return abs_url(link)
     return SITE_URL
 
 
@@ -130,6 +154,19 @@ def snapshot_effort(effort: dict) -> dict:
     }
 
 
+def snapshot_pinned(pinned) -> dict:
+    if not isinstance(pinned, dict) or not pinned.get("show"):
+        return {"show": False, "text": "", "gif": "", "updated": "", "name": "", "avatar": ""}
+    return {
+        "show": True,
+        "text": (pinned.get("text") or "").strip(),
+        "gif": (pinned.get("gif") or "").strip(),
+        "updated": (pinned.get("updated") or "").strip(),
+        "name": (pinned.get("name") or "4lwayz").strip(),
+        "avatar": (pinned.get("avatar") or "").strip(),
+    }
+
+
 def change_hash(entry: dict) -> str:
     raw = f"{entry.get('date', '')}|{entry.get('kind', '')}|{entry.get('text', '')}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
@@ -139,23 +176,9 @@ def is_editorial_change(entry: dict) -> bool:
     text = (entry.get("text") or "").strip()
     if not text:
         return False
-    # Filter out routine unreviewed GitHub scout discoveries
     if entry.get("kind") == "new" and text.startswith("Scout spotted "):
         return False
     return True
-
-
-def extract_pinned_text(pinned) -> str:
-    if not pinned:
-        return ""
-    if isinstance(pinned, str):
-        return pinned.strip()
-    if isinstance(pinned, dict):
-        for key in ("text", "message", "content", "body"):
-            val = pinned.get(key)
-            if isinstance(val, str) and val.strip():
-                return val.strip()
-    return ""
 
 
 def get_leaders(efforts_map: dict[str, dict]) -> tuple[tuple[str, float] | None, tuple[str, float] | None]:
@@ -197,7 +220,7 @@ def build_state(tracker: dict, pinned) -> dict:
         "news_ids": news_ids,
         "dmca_paths": dmca_paths,
         "editorial_hashes": editorial_hashes,
-        "pinned_text": extract_pinned_text(pinned),
+        "pinned": snapshot_pinned(pinned),
     }
 
 
@@ -207,12 +230,22 @@ def load_old_state() -> dict | None:
     with open(STATE_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Seamlessly migrate from v1 state.json if present
     if data.get("schema_version") != 2:
         old_tracker = data.get("tracker")
         if isinstance(old_tracker, dict):
             return build_state(old_tracker, data.get("pinned"))
         return None
+
+    # Migrate v2.0 (pinned_text) -> v2.1 (pinned dict)
+    if "pinned" not in data:
+        data["pinned"] = {
+            "show": bool(data.get("pinned_text")),
+            "text": data.get("pinned_text") or "",
+            "gif": "",
+            "updated": "",
+            "name": "4lwayz",
+            "avatar": "",
+        }
     return data
 
 
@@ -268,8 +301,8 @@ def format_gta_deltas(old_gta: dict, new_gta: dict) -> list[str]:
     if old_gta.get("fps") != new_gta.get("fps"):
         lines.append(f"• **FPS:** `{old_gta.get('fps', 0)}` → **`{new_gta.get('fps', 0)} fps`**")
     if old_gta.get("story") != new_gta.get("story"):
-        o = int(round(float(old_gta.get("story") or 0) * 100))
-        n = int(round(float(new_gta.get("story") or 0) * 100))
+        o = int(round(to_float(old_gta.get("story"), 0.0) * 100))
+        n = int(round(to_float(new_gta.get("story"), 0.0) * 100))
         lines.append(f"• **Story:** `{o}%` → **`{n}%`**")
     if old_gta.get("render") != new_gta.get("render"):
         lines.append(f"• **Rendering:** `{old_gta.get('render', 0)}` → **`{new_gta.get('render', 0)}`**")
@@ -316,17 +349,30 @@ def main() -> None:
 
     embeds = []
 
-    # 1. Pinned announcement
-    if new_state["pinned_text"] and new_state["pinned_text"] != old_state.get("pinned_text", ""):
-        embeds.append({
-            "title": "📌 New Pinned Announcement on PortWatch VI",
+    # 1. Pinned announcement (supports text, GIF, or both)
+    old_pin = old_state.get("pinned") or {}
+    new_pin = new_state["pinned"]
+    pin_sig_old = (old_pin.get("text", ""), old_pin.get("gif", ""), old_pin.get("updated", ""))
+    pin_sig_new = (new_pin.get("text", ""), new_pin.get("gif", ""), new_pin.get("updated", ""))
+    if new_pin["show"] and (new_pin["text"] or new_pin["gif"]) and pin_sig_new != pin_sig_old:
+        pin_embed = {
+            "title": f"📌 New Pinned Message from {new_pin['name']}",
             "url": SITE_URL,
-            "description": truncate(new_state["pinned_text"], 1500),
             "color": 0xFF8A3D,
-            "timestamp": now_iso,
-        })
+            "timestamp": new_pin["updated"] or now_iso,
+        }
+        if new_pin["text"]:
+            pin_embed["description"] = truncate(new_pin["text"], 1500)
+        if new_pin["avatar"]:
+            pin_embed["author"] = {
+                "name": f"{new_pin['name']} (Creator)",
+                "icon_url": abs_url(new_pin["avatar"]),
+            }
+        if new_pin["gif"]:
+            pin_embed["image"] = {"url": abs_url(new_pin["gif"])}
+        embeds.append(pin_embed)
 
-    # 2. News articles (from tracker.json)
+    # 2. News articles
     seen_news = set(old_state.get("news_ids") or [])
     fresh_news = [
         n for n in (tracker.get("news") or [])
@@ -365,7 +411,7 @@ def main() -> None:
                 "timestamp": now_iso,
             })
 
-    # 4. Effort updates (new projects, progress jumps, nukes, public/private changes, tier promotions)
+    # 4. Effort updates
     old_efforts = old_state.get("efforts") or {}
     new_efforts = new_state["efforts"]
 
@@ -374,7 +420,6 @@ def main() -> None:
         visibility = "Public" if cur["repo"] else "Private"
 
         if eid not in old_efforts:
-            # Brand new effort added to the board
             embeds.append({
                 "title": f"🆕 New {visibility} Build Added: {cur['name']} ({cur['score']}%)",
                 "url": cur["url"],
@@ -391,7 +436,6 @@ def main() -> None:
         prev = old_efforts[eid]
         notes = []
 
-        # Nuked / taken down
         if cur["nuked"] and not prev.get("nuked"):
             embeds.append({
                 "title": f"💀 Project Nuked: {cur['name']}",
@@ -402,19 +446,16 @@ def main() -> None:
             })
             continue
 
-        # Tier promotion (watchlist -> tracked)
         if prev.get("tier") != cur["tier"]:
             notes.append(f"• **Tier:** `{prev.get('tier')}` → **`{cur['tier']}`**")
 
-        # Public <-> Private change
         if bool(prev.get("repo")) != bool(cur["repo"]):
             if cur["repo"]:
                 notes.append(f"• 🔓 **Code went PUBLIC:** [`{cur['repo']}`](https://github.com/{cur['repo']})")
             else:
                 notes.append("• 🔒 **Code went PRIVATE / offline**")
 
-        # Stage or Score change
-        score_changed = abs(cur["score"] - float(prev.get("score") or 0)) >= 0.1
+        score_changed = abs(cur["score"] - to_float(prev.get("score"), 0.0)) >= 0.1
         stage_changed = cur["stage"] != prev.get("stage")
         gta_deltas = format_gta_deltas(prev.get("gta") or {}, cur.get("gta") or {})
 
@@ -423,7 +464,7 @@ def main() -> None:
         notes.extend(gta_deltas)
 
         if score_changed or notes:
-            diff = round(cur["score"] - float(prev.get("score") or 0), 1)
+            diff = round(cur["score"] - to_float(prev.get("score"), 0.0), 1)
             arrow = f"+{diff}%" if diff > 0 else f"{diff}%"
             score_line = (
                 f"`{make_bar(cur['score'])}` **{prev.get('score')}% → {cur['score']}%** (`{arrow}`)"
@@ -483,11 +524,6 @@ def main() -> None:
         send_discord(embeds)
         save_state(new_state)
     else:
-        # Still save migrated v2 state cleanly on first run after upgrading
-        if not os.path.exists(STATE_FILE) or (
-            json.load(open(STATE_FILE, encoding="utf-8")).get("schema_version") != 2
-        ):
-            save_state(new_state)
         print(
             f"[OK] Checked PortWatch VI (site updated {tracker.get('updated')}) | "
             f"Overall #1: {overall_str} | Public #1: {public_str} | No new updates."
