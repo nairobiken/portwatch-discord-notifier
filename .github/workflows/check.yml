@@ -1,10 +1,6 @@
 name: Check PortWatch VI Updates
 
 on:
-  schedule:
-    # Runs every 5 minutes (100% free & unlimited on Public repos).
-    # If your repo is Private, change */5 to */30 to stay under 2,000 free min/month.
-    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
