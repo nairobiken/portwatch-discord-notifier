@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-27T01:34:25.666Z",
+  "updated": "2026-11-27T13:30:14.187Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -1344,22 +1344,12 @@
     "2026/11/2026-11-24-take-two.md",
     "2026/11/2026-11-18-take-two-4.md"
   ],
-  "editorial_hashes": [
-    "a77612a366eca843",
-    "a9cec53c618e7fc6",
-    "f4dd32beee96de92",
-    "002ec7173dd47d7f",
-    "3055a003d9a724b4",
-    "2d03935d92a7b973",
-    "87f6a21de6c8603c",
-    "87f6a21de6c8603c",
-    "0c366443f0734ceb"
-  ],
+  "editorial_hashes": [],
   "pinned": {
     "show": true,
-    "text": "**GTA 6 MULTIPLAYER ON PC IS REAL. PortWatch has confirmed it.** 🔥🔥🔥\n\nHoly shit. Players, cars and proximity voice chat, all at a stable 25-30 fps.\n\nWatch it here:\nhttps://x.com/4lwayz_/status/2126083366600724566",
-    "gif": "assets/img/pinned/whiplash.gif",
-    "updated": "2026-11-26T23:57:46Z",
+    "text": "**Why the top score is stuck at 91.3%: it's rendering now, not FPS.**\n\nFPS is the easy part. Turn off ray tracing, render at a low resolution and upscale, and you can hit 60. On our scale anything past 30 fps doesn't count, and a blurry low-res picture costs rendering points.\n\nWhat's missing is a picture that looks like the console: full lighting, ray tracing, sharp textures. Like DexNom said, the way forward is fixing rendering.",
+    "gif": "",
+    "updated": "2026-11-27T14:13:39Z",
     "name": "4lwayz",
     "avatar": "assets/img/4lwayz-2.jpg"
   }
