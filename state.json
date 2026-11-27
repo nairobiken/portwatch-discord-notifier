@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-26T22:07:44.715Z",
+  "updated": "2026-11-27T01:34:25.666Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -1345,10 +1345,6 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "11818c1340167e98",
-    "08d6ebe4ae21eaf0",
-    "fd5c57ef957c5304",
-    "a77612a366eca843",
     "a77612a366eca843",
     "a9cec53c618e7fc6",
     "f4dd32beee96de92",
@@ -1356,7 +1352,8 @@
     "3055a003d9a724b4",
     "2d03935d92a7b973",
     "87f6a21de6c8603c",
-    "87f6a21de6c8603c"
+    "87f6a21de6c8603c",
+    "0c366443f0734ceb"
   ],
   "pinned": {
     "show": true,
