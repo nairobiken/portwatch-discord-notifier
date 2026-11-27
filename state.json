@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-27T13:30:14.187Z",
+  "updated": "2026-11-27T16:18:23.809Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -59,7 +59,7 @@
     "belobug": {
       "name": "Belobug",
       "tier": "tracked",
-      "repo": "Belobug/VIctory-Belobug-AMD",
+      "repo": null,
       "gpu": [
         "AMD"
       ],
@@ -80,8 +80,8 @@
       "groundwork": {},
       "score": 91.3,
       "stage": "Playable",
-      "summary": "Belobug's VIctory fork runs on AMD Radeon and is now very playable: about 22 fps on average with no crashes, using about 30 GB of RAM and 12 GB of video memory. Its lit open world plays through missions, with story progress rated 80%, level with CGBJ, and its picture is rated just below DexNom's. Its README hasn't caught up yet: it still reports 5-7 fps.",
-      "url": "https://github.com/Belobug/VIctory-Belobug-AMD"
+      "summary": "Belobug's VIctory fork for AMD Radeon is very playable: about 22 fps on average with no crashes, and story progress rated 80%. Its code and GitHub account were taken down on 27 Nov by a DMCA notice, which PortWatch has confirmed.",
+      "url": "https://www.reddit.com/r/FitGirlRepack/comments/1y67xnd/belo_top_dawg/"
     },
     "dexnom": {
       "name": "DexNom",
@@ -1372,7 +1372,8 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "d1450526f44b8c0b"
+    "d1450526f44b8c0b",
+    "90ba99633b7a462b"
   ],
   "pinned": {
     "show": true,
