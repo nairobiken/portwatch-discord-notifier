@@ -53,7 +53,7 @@
       "groundwork": {},
       "score": 90.0,
       "stage": "Playable",
-      "summary": "An NVIDIA fork of VIctory, now on readmet3xt-lab's foxhound, with DLSS, frame generation and an in-game settings menu. PortWatch has verified it: about as playable as the leaders, 20 fps, no crashes, some stutter, no ray tracing by default.",
+      "summary": "An NVIDIA fork of VIctory on readmet3xt-lab's foxhound, with DLSS, frame generation and an in-game settings menu. PortWatch has verified it: about as playable as the leaders, at 20 fps without frame generation and without crashes.",
       "url": "https://github.com/trustno1-coder/VIctory-NVIDIA"
     },
     "belobug": {
@@ -1372,7 +1372,7 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "87a8438bcefb22b9"
+    "d1450526f44b8c0b"
   ],
   "pinned": {
     "show": true,
