@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-27T19:13:01.931Z",
+  "updated": "2026-11-27T22:08:55.566Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -1373,8 +1373,8 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "c57590cbea24d125",
-    "ac56a07e2a3dd69a"
+    "866982bf070b33bb",
+    "67d48b5db3e25f80"
   ],
   "pinned": {
     "show": true,
