@@ -29,6 +29,33 @@
       "summary": "Kelvaroq is a public Rust runtime built on VIctory and victory-fork. It adds rendering patches and measured submission improvements, and runs GTA VI through the prologue and first mission.",
       "url": "https://github.com/stellarr-studio/kelvaroq"
     },
+    "victory-nvidia": {
+      "name": "VIctory-NVIDIA",
+      "tier": "tracked",
+      "repo": "trustno1-coder/VIctory-NVIDIA",
+      "gpu": [
+        "NVIDIA"
+      ],
+      "verification": "portwatch",
+      "nuked": false,
+      "nuked_note": "",
+      "gta": {
+        "loads": 1,
+        "boots": 1,
+        "menu": 1,
+        "world": 1,
+        "playable": 1,
+        "story": 0.8,
+        "render": 0.75,
+        "fps": 20,
+        "stability": 1
+      },
+      "groundwork": {},
+      "score": 90.0,
+      "stage": "Playable",
+      "summary": "An NVIDIA fork of VIctory, now on readmet3xt-lab's foxhound, with DLSS, frame generation and an in-game settings menu. PortWatch has verified it: about as playable as the leaders, 20 fps, no crashes, some stutter, no ray tracing by default.",
+      "url": "https://github.com/trustno1-coder/VIctory-NVIDIA"
+    },
     "belobug": {
       "name": "Belobug",
       "tier": "tracked",
@@ -1344,7 +1371,9 @@
     "2026/11/2026-11-24-take-two.md",
     "2026/11/2026-11-18-take-two-4.md"
   ],
-  "editorial_hashes": [],
+  "editorial_hashes": [
+    "87a8438bcefb22b9"
+  ],
   "pinned": {
     "show": true,
     "text": "**Why the top score is stuck at 91.3%: it's rendering now, not FPS.**\n\nFPS is the easy part. Turn off ray tracing, render at a low resolution and upscale, and you can hit 60. On our scale anything past 30 fps doesn't count, and a blurry low-res picture costs rendering points.\n\nWhat's missing is a picture that looks like the console: full lighting, ray tracing, sharp textures. Like DexNom said, the way forward is fixing rendering.",
