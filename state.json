@@ -65,7 +65,7 @@
       ],
       "verification": "portwatch",
       "nuked": true,
-      "nuked_note": "Repository and GitHub account taken down by a DMCA notice on Nov 27, confirmed by PortWatch.",
+      "nuked_note": "Repository and GitHub account removed by GitHub on Nov 27 for a Terms of Service violation, confirmed by PortWatch. Its progress still counts in our overall number.",
       "gta": {
         "loads": 1,
         "boots": 1,
@@ -80,7 +80,7 @@
       "groundwork": {},
       "score": 91.3,
       "stage": "Playable",
-      "summary": "Belobug's VIctory fork for AMD Radeon is very playable: about 22 fps on average with no crashes, and story progress rated 80%. Its code and GitHub account were taken down on 27 Nov by a DMCA notice, which PortWatch has confirmed.",
+      "summary": "Belobug's VIctory fork for AMD Radeon is very playable: about 22 fps on average with no crashes, and story progress rated 80%. Its code and GitHub account were removed by GitHub on 27 Nov for a Terms of Service violation, which PortWatch has confirmed.",
       "url": "https://www.reddit.com/r/FitGirlRepack/comments/1y67xnd/belo_top_dawg/"
     },
     "dexnom": {
@@ -1374,7 +1374,7 @@
   ],
   "editorial_hashes": [
     "d1450526f44b8c0b",
-    "806c90d4e9c3c80d"
+    "c57590cbea24d125"
   ],
   "pinned": {
     "show": true,
