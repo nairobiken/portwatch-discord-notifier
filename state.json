@@ -64,8 +64,8 @@
         "AMD"
       ],
       "verification": "portwatch",
-      "nuked": false,
-      "nuked_note": "",
+      "nuked": true,
+      "nuked_note": "Repository and GitHub account taken down by a DMCA notice on Nov 27, confirmed by PortWatch.",
       "gta": {
         "loads": 1,
         "boots": 1,
@@ -1342,6 +1342,7 @@
     }
   },
   "news_ids": [
+    "2026-11-27-belobug-dmca",
     "2026-11-26-multiplayer-running",
     "2026-11-25-belobug-way-ahead",
     "2026-11-25-zettrox-no-crashes",
@@ -1373,7 +1374,7 @@
   ],
   "editorial_hashes": [
     "d1450526f44b8c0b",
-    "90ba99633b7a462b"
+    "806c90d4e9c3c80d"
   ],
   "pinned": {
     "show": true,
