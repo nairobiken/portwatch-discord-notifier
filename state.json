@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-27T16:18:23.809Z",
+  "updated": "2026-11-27T19:13:01.931Z",
   "efforts": {
     "kelvaroq": {
       "name": "Kelvaroq",
@@ -173,7 +173,7 @@
       ],
       "verification": "portwatch",
       "nuked": true,
-      "nuked_note": "Repository and GitHub account went offline on Nov 27; it isn't known whether GitHub removed them or the owner took them down. Its progress still counts in our overall number.",
+      "nuked_note": "Repository and GitHub account removed by GitHub on Nov 27 for a Terms of Service violation, as with Belobug, confirmed by PortWatch. Its progress still counts in our overall number.",
       "gta": {
         "loads": 1,
         "boots": 1,
@@ -188,7 +188,7 @@
       "groundwork": {},
       "score": 81.8,
       "stage": "Playable",
-      "summary": "AvatarManz's VIctory fork for the AMD Radeon RX 7900 XTX, verified by PortWatch at about 16 fps on average, with sound. Its code and GitHub account went offline on 27 Nov; it isn't known whether GitHub removed them or its owner did.",
+      "summary": "AvatarManz's VIctory fork for the AMD Radeon RX 7900 XTX, verified by PortWatch at about 16 fps on average, with sound. Its code and GitHub account were removed by GitHub on 27 Nov for a Terms of Service violation, as Belobug's were, which PortWatch has confirmed.",
       "url": "https://www.reddit.com/r/FitGirlRepack/comments/1y5k8xu/actually_playable/"
     },
     "notnozy": {
@@ -1373,9 +1373,8 @@
     "2026/11/2026-11-18-take-two-4.md"
   ],
   "editorial_hashes": [
-    "d1450526f44b8c0b",
     "c57590cbea24d125",
-    "3ef693063ef60785"
+    "ac56a07e2a3dd69a"
   ],
   "pinned": {
     "show": true,
